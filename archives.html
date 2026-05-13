@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Archives</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="quiz_styles.css">
+<style>
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+  }
+
+  /* Each image wrapper */
+  .gallery-item {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    cursor: pointer;
+    background: var(--bg2);
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Blurred by default */
+    filter: blur(6px);
+    transform: scale(1.05); /* hides blur edges */
+    transition: filter 0.4s ease, transform 0.4s ease;
+  }
+
+  /* Hovering removes the blur */
+  .gallery-item:hover img {
+    filter: blur(0px);
+    transform: scale(1);
+  }
+
+  /* Lightbox overlay */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 900;
+    background: rgba(0,0,0,0.85);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .lightbox.open {
+    display: flex;
+  }
+
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    font-family: 'Playfair Display', serif;
+    line-height: 1;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-brand">Round Square</a>
+  <div class="nav-links">
+    <a href="https://news.google.com" target="_blank">Today's News</a>
+    <a href="ideals.html">Exploring Your IDEALS</a>
+    <a href="archives.html" class="active">The Archives</a>
+    <a href="mailto:icskumasi.news@gmail.com">Feedback</a>
+  </div>
+</nav>
+
+<div class="page-body">
+  <div class="page-inner">
+    <h1 class="page-title">The Archives</h1>
+    <p class="page-sub">Hover to preview. Click to open.</p>
+
+    <div class="gallery-grid" id="gallery"></div>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close">×</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+//  ARCHIVES CONFIG
+//  Add your image filenames here as you upload them to /assets/
+//  Example: "week1-poster.jpg", "event-photo.png"
+//  Supported formats: jpg, jpeg, png, gif, webp
+// ═══════════════════════════════════════════════════════════════
+const IMAGES = [
+  // "week1.jpg",
+  // "week2.jpg",
+  // "event1.png",
+];
+// ═══════════════════════════════════════════════════════════════
+
+const gallery = document.getElementById('gallery');
+
+if (IMAGES.length === 0) {
+  gallery.innerHTML = `
+    <div class="empty-state" style="grid-column: 1 / -1;">
+      No news yet!
+    </div>
+    
+  `;
+// add filenames to the IMAGES array in archives.html<br>
+//and upload the files to your /assets/ folder on GitHub.
+} else {
+  IMAGES.forEach(filename => {
+    const item = document.createElement('div');
+    item.className = 'gallery-item';
+
+    const img = document.createElement('img');
+    img.src = `assets/${filename}`;
+    img.alt = filename;
+    // clicking opens the lightbox
+    item.onclick = () => openLightbox(`assets/${filename}`);
+
+    item.appendChild(img);
+    gallery.appendChild(item);
+  });
+}
+
+function openLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('open');
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.getElementById('lightbox-img').src = '';
+}
+
+// Close lightbox with Escape key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLightbox();
+});
+</script>
+
+</body>
+</html>

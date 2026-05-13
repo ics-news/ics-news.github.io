@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Which IDEAL are you?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="quiz_styles.css">
+</head>
+<body>
+
+<!-- ── Navbar ── -->
+<nav class="navbar">
+  <a href="index.html" class="nav-brand">Round Square</a>
+  <div class="nav-links">
+    <a href="https://news.google.com" target="_blank">Today's News</a>
+    <a href="ideals.html">Exploring Your IDEALS</a>
+    <a href="archives.html">The Archives</a>
+    <!-- ═══════════════════════════════════════════
+         Replace YOUR_EMAIL_HERE with your actual
+         email address e.g. yourname@school.com
+         ═══════════════════════════════════════════ -->
+    <a href="mailto:icskumasi.news@gmail.com">Feedback</a>
+  </div>
+</nav>
+
+<!-- Landing (first-time visitors) -->
+<div class="screen active" id="screen-landing">
+  <div class="inner">
+    <p class="eyebrow">Round Square</p>
+    <h1 class="title">Which <em>IDEAL</em><br>are you?</h1>
+    <button class="btn-primary" onclick="startQuiz()">Begin →</button>
+  </div>
+</div>
+
+<!-- Returning user landing -->
+<div class="screen" id="screen-returning">
+  <div class="inner">
+    <p class="eyebrow">Welcome back</p>
+    <p class="returning-label">Last time, you were</p>
+    <h2 class="ideal-name returning-ideal" id="returning-ideal-name"></h2>
+    <p class="returning-sub">A new story is waiting for you.</p>
+    <a class="btn-news returning-news-btn" id="returning-news-btn" href="#" target="_blank">
+      Read this week's story →
+    </a>
+    <button class="restart" onclick="startQuiz()">Retake the quiz</button>
+  </div>
+</div>
+
+<!-- Quiz -->
+<div class="screen" id="screen-quiz">
+  <div class="inner">
+    <p class="q-label" id="q-label">Question 1 of 8</p>
+    <div class="quiz-inner" id="quiz-inner">
+      <h2 class="question" id="question-text"></h2>
+      <div class="options" id="options-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Calculating -->
+<div class="screen" id="screen-calc">
+  <div class="inner">
+    <p class="eyebrow">Reading the signs</p>
+    <div class="dots">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Result -->
+<div class="screen" id="screen-result">
+  <div class="inner">
+    <p class="result-badge" id="result-badge">Your IDEAL</p>
+    <h2 class="ideal-name" id="ideal-name"></h2>
+    <p class="ideal-desc" id="ideal-desc"></p>
+    <a class="btn-news" id="btn-news" href="#" target="_blank">Read this week's story →</a>
+    <button class="restart" onclick="restart()">Start again</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER — replace src="" with your image filenames
+     e.g. src="roundsquare.png"
+     Images must be in the same folder as index.html
+     ═══════════════════════════════════════════ -->
+<footer class="site-footer">
+  <img src="" alt="Logo 1" class="footer-img">
+  <img src="" alt="Logo 2" class="footer-img">
+  <img src="" alt="Logo 3" class="footer-img">
+</footer>
+
+<script src="quiz_script.js"></script>
+</body>
+</html>

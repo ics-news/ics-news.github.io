@@ -1,0 +1,374 @@
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&family=Playfair+Display:wght@400;700;900&display=swap');
+
+:root {
+  --c-internationalism: #3A7BD5;
+  --c-democracy:        #8B5CF6;
+  --c-environmentalism: #059669;
+  --c-adventure:        #D97706;
+  --c-leadership:       #DC2626;
+  --c-service:          #0891B2;
+  --bg:   #ffffff;
+  --bg2:  #f3f3f3;
+  --text: #0D0D12;
+  --muted: #666;
+  --gold: #ee3f3f;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Indie Flower', cursive;
+  font-weight: 400;
+  min-height: 100vh;
+}
+
+/* ── Navbar ─────────────────────────────────────────────────────────────── */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: var(--bg);
+  border-bottom: 1px solid #00000010;
+}
+
+.nav-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  font-family: 'Indie Flower', cursive;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--text); }
+.nav-links a.active { color: var(--gold); }
+
+/* ── Quiz screens ────────────────────────────────────────────────────────── */
+.screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 2rem 5rem; /* top padding accounts for navbar */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+.screen.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.inner {
+  max-width: 620px;
+  width: 100%;
+  text-align: center;
+}
+
+/* ── Landing ── */
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.2s forwards;
+}
+
+h1.title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.4s forwards;
+}
+
+h1.title em {
+  font-style: normal;
+  color: var(--gold);
+}
+
+.btn-primary {
+  display: inline-block;
+  background: var(--gold);
+  color: #ffffff;
+  font-family: 'Indie Flower', cursive;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 1rem 2.5rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.8s forwards;
+}
+
+.btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+.btn-primary:active { transform: scale(0.98); }
+
+/* ── Returning user ── */
+.returning-label {
+  font-size: 1rem;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+  opacity: 0;
+  animation: fadeUp 0.7s 0.3s forwards;
+}
+
+.returning-ideal { margin-bottom: 1rem !important; }
+
+.returning-sub {
+  font-size: 1rem;
+  color: var(--muted);
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 0.7s 0.7s forwards;
+}
+
+.returning-news-btn {
+  opacity: 0;
+  animation: fadeUp 0.7s 0.9s forwards;
+}
+
+/* ── Quiz ── */
+.q-label {
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 2rem;
+}
+
+h2.question {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 2.5rem;
+  color: var(--text);
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-align: left;
+}
+
+.option {
+  background: var(--bg2);
+  border: 1px solid #00000015;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  font-family: 'Indie Flower', cursive;
+  font-size: 1rem;
+  color: var(--text);
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.option:hover {
+  border-color: var(--gold);
+  background: #00000008;
+  transform: translateX(4px);
+}
+
+.opt-letter {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #00000025;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+/* ── Calculating ── */
+.dots {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.dot {
+  width: 8px; height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* ── Result ── */
+.result-badge {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.4rem 1rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid currentColor;
+  opacity: 0;
+  animation: fadeUp 0.7s 0.2s forwards;
+}
+
+h2.ideal-name {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.7s 0.4s forwards;
+}
+
+.ideal-desc {
+  font-size: 1.1rem;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 480px;
+  margin: 0 auto 3rem;
+  opacity: 0;
+  animation: fadeUp 0.7s 0.6s forwards;
+}
+
+.btn-news {
+  display: inline-block;
+  font-family: 'Indie Flower', cursive;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 1rem 2.5rem;
+  border: 1px solid currentColor;
+  cursor: pointer;
+  background: transparent;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+  opacity: 0;
+  animation: fadeUp 0.7s 0.8s forwards;
+}
+
+.btn-news:hover { background: currentColor; color: var(--bg); transform: translateY(-2px); }
+
+.restart {
+  display: block;
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: 'Indie Flower', cursive;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  opacity: 0;
+  animation: fadeUp 0.7s 1s forwards;
+}
+
+.restart:hover { color: var(--text); }
+
+/* ── Footer ── */
+.site-footer {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 0.75rem 2rem;
+  background: linear-gradient(to top, var(--bg), transparent);
+}
+
+.footer-img {
+  height: 32px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+.footer-img:hover { opacity: 1; }
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50%       { opacity: 1;   transform: scale(1); }
+}
+
+.quiz-inner {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.quiz-inner.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Shared page styles (used by ideals.html and archives.html) ── */
+.page-body {
+  display: block;
+  min-height: 100vh;
+  padding: 6rem 2rem 5rem;
+}
+
+.page-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.page-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.page-sub {
+  font-size: 1rem;
+  color: var(--muted);
+  margin-bottom: 3rem;
+}
