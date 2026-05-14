@@ -54,14 +54,14 @@ window.addEventListener('load', function () {
 
 const QUESTIONS = [
   {
-    text: "You're handed a free weekend and a passport. Where do you go?",
+    text: "You're handed a free weekend. Where do you go?",
     options: [
       { text: "A city where you don't speak the language", ideal: "I" },
-      { text: "A community forum in a town you've never heard of", ideal: "D" },
-      { text: "Somewhere untouched — deep forest, remote coast", ideal: "E" },
-      { text: "The highest peak you can safely reach", ideal: "A" },
-      { text: "A leadership retreat with people who challenge you", ideal: "L" },
-      { text: "A place where you can volunteer for a week", ideal: "S" }
+      { text: "A new restaurant you've always wanted to try", ideal: "D" },
+      { text: "Somewhere untouched like deep forest, for camping", ideal: "E" },
+      { text: "A tall mountain to enjoy the view", ideal: "A" },
+      { text: "Nowhere- you'd rather recharge your batteries", ideal: "L" },
+      { text: "Your grandparents' house - to see how they're doing", ideal: "S" }
     ]
   },
   {
@@ -98,14 +98,14 @@ const QUESTIONS = [
     ]
   },
   {
-    text: "You're given £1,000 to spend on others. You:",
+    text: "Your spirit animal would likely be:",
     options: [
-      { text: "Fund a cultural exchange trip for students", ideal: "I" },
-      { text: "Support a grassroots civic education programme", ideal: "D" },
-      { text: "Donate to a reforestation or clean water project", ideal: "E" },
-      { text: "Help someone complete their first big expedition", ideal: "A" },
-      { text: "Launch a youth leadership workshop", ideal: "L" },
-      { text: "Stock a food bank for three months", ideal: "S" }
+      { text: "An eagle", ideal: "I" },
+      { text: "A bee", ideal: "D" },
+      { text: "An earthworm", ideal: "E" },
+      { text: "A dolphin", ideal: "A" },
+      { text: "A wolf", ideal: "L" },
+      { text: "An elephant", ideal: "S" }
     ]
   },
   {
