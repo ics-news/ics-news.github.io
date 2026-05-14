@@ -65,36 +65,36 @@ const QUESTIONS = [
     ]
   },
   {
-    text: "Pick a superpower — be honest:",
+    text: "Pick a superpower:",
     options: [
-      { text: "Speak and understand every language on Earth", ideal: "I" },
-      { text: "Make every election perfectly fair, everywhere", ideal: "D" },
-      { text: "Reverse environmental damage instantly", ideal: "E" },
-      { text: "Survive anywhere on the planet — jungle, desert, arctic", ideal: "A" },
-      { text: "Inspire anyone to be their best self", ideal: "L" },
-      { text: "Heal any illness with a touch", ideal: "S" }
+      { text: "Talk to animals", ideal: "I" },
+      { text: "Mind control", ideal: "D" },
+      { text: "Control any element", ideal: "E" },
+      { text: "Invincibility", ideal: "A" },
+      { text: "Telepathy", ideal: "L" },
+      { text: "Heal any illness", ideal: "S" }
     ]
   },
   {
     text: "Your friends would describe you as the one who...",
     options: [
-      { text: "Always bridges different groups of people", ideal: "I" },
+      { text: "Always makes new friends", ideal: "I" },
       { text: "Speaks up when no one else dares to", ideal: "D" },
-      { text: "Turns off lights and corrects everyone's recycling", ideal: "E" },
-      { text: "Suggests the plan that makes everyone nervous — but it works", ideal: "A" },
+      { text: "Needs a clean environment", ideal: "E" },
+      { text: "Is always trying something new", ideal: "A" },
       { text: "Somehow ends up in charge, always", ideal: "L" },
       { text: "Shows up before you even ask", ideal: "S" }
     ]
   },
   {
-    text: "If you could change one thing in the world overnight:",
+    text: "If you could end one thing in the world overnight, it would be:",
     options: [
-      { text: "No more cultural misunderstanding or xenophobia", ideal: "I" },
-      { text: "Every person has a real, protected vote", ideal: "D" },
-      { text: "Carbon emissions: gone", ideal: "E" },
-      { text: "Every human can experience true wilderness at least once", ideal: "A" },
-      { text: "Great mentors for every young person on earth", ideal: "L" },
-      { text: "No one goes to bed hungry", ideal: "S" }
+      { text: "No more racism or xenophobia", ideal: "I" },
+      { text: "Youth Unemployment", ideal: "D" },
+      { text: "Climate Change", ideal: "E" },
+      { text: "The AI Uprising", ideal: "A" },
+      { text: "Childhood Traumas", ideal: "L" },
+      { text: "World Hunger", ideal: "S" }
     ]
   },
   {
@@ -111,34 +111,34 @@ const QUESTIONS = [
   {
     text: "You're in a library. You reach for a book about:",
     options: [
-      { text: "A journalist's year living across six different cultures", ideal: "I" },
+      { text: "A journalist's report on different cultures", ideal: "I" },
       { text: "How ordinary people changed laws they disagreed with", ideal: "D" },
-      { text: "An ecologist who spent a decade in the Amazon", ideal: "E" },
+      { text: "People stranded in the Amazon", ideal: "E" },
       { text: "The first person to row an ocean alone", ideal: "A" },
-      { text: "What makes a leader people actually follow", ideal: "L" },
-      { text: "Unsung figures who quietly changed millions of lives", ideal: "S" }
+      { text: "Countries and their worst presidents", ideal: "L" },
+      { text: "Unknown figures who quietly changed millions of lives", ideal: "S" }
     ]
   },
   {
     text: "Your version of success looks like:",
     options: [
-      { text: "Being equally at home in any country", ideal: "I" },
-      { text: "A system that's fairer than the one you inherited", ideal: "D" },
+      { text: "Being rich enough to travel the world", ideal: "I" },
+      { text: "Creating a system that's fairer than the one you inherited", ideal: "D" },
       { text: "Leaving the world's natural spaces better than you found them", ideal: "E" },
-      { text: "A list of challenges that once terrified you — all ticked off", ideal: "A" },
-      { text: "People who grew because of you", ideal: "L" },
+      { text: "A list of challenges that you set — all ticked off", ideal: "A" },
+      { text: "People growing because of your work", ideal: "L" },
       { text: "Knowing someone's life improved because you were there", ideal: "S" }
     ]
   },
   {
     text: "The quality you most admire in another person is:",
     options: [
-      { text: "Genuine curiosity about lives different from their own", ideal: "I" },
-      { text: "The courage to hold power accountable", ideal: "D" },
-      { text: "Living by their environmental values, even when it's inconvenient", ideal: "E" },
-      { text: "Fearlessness — not the absence of fear, but acting anyway", ideal: "A" },
-      { text: "Knowing how to make everyone feel capable", ideal: "L" },
-      { text: "Giving without any expectation of return", ideal: "S" }
+      { text: "Empathy", ideal: "I" },
+      { text: "Responsibility", ideal: "D" },
+      { text: "Principles", ideal: "E" },
+      { text: "Fearlessness", ideal: "A" },
+      { text: "Inclusion", ideal: "L" },
+      { text: "Selflessness", ideal: "S" }
     ]
   }
 ];
