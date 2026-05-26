@@ -147,32 +147,56 @@ const IDEALS = {
   I: {
     name: "Internationalism",
     color: "var(--c-internationalism)",
-    desc: "You see the world as one community. Borders are just lines on a map — what matters is the bridge between people."
+    desc: "You see the world as one community. Borders are just lines on a map — what matters is the bridge between people.",
+    discoveries: [
+      { name: "Diversity Dani",      desc: "Dani crosses every boundary with curiosity. She collects languages, friendships, and perspectives the way others collect stamps." },
+      { name: "Communication Cara",  desc: "Cara believes that the right words — chosen carefully — can build bridges across any divide." }
+    ]
   },
   D: {
     name: "Democracy",
     color: "var(--c-democracy)",
-    desc: "You believe every voice deserves to be heard. You speak up, invite others in, and hold power accountable."
+    desc: "You believe every voice deserves to be heard. You speak up, invite others in, and hold power accountable.",
+    discoveries: [
+      { name: "Courageous Collette", desc: "Collette speaks up in rooms where silence would be easier. She knows courage isn't the absence of fear — it's acting anyway." },
+      { name: "Self-Aware Simba",    desc: "Simba questions his own assumptions before questioning anyone else's. Change, he believes, starts from within." }
+    ]
   },
   E: {
     name: "Environmentalism",
     color: "var(--c-environmentalism)",
-    desc: "You know the Earth is not ours to keep — only to protect. You live with that responsibility every single day."
+    desc: "You know the Earth is not ours to keep — only to protect. You live with that responsibility every single day.",
+    discoveries: [
+      { name: "Sustainability Suki", desc: "Suki lives by one rule: leave things better than you found them. Every small choice is a vote for the planet." },
+      { name: "Responsible Rami",    desc: "Rami understands that the Earth doesn't belong to us — we belong to it. He acts like it." }
+    ]
   },
   A: {
     name: "Adventure",
     color: "var(--c-adventure)",
-    desc: "You live at the edge of your comfort zone. That's not recklessness — it's where you feel most alive and most yourself."
+    desc: "You live at the edge of your comfort zone. That's not recklessness — it's where you feel most alive and most yourself.",
+    discoveries: [
+      { name: "Inquisitive Indu",  desc: "Indu never stops asking why. Her questions open doors that others didn't even notice were there." },
+      { name: "Tenacious Tino",    desc: "Tino doesn't quit. When the path gets hard, he leans in — because that's exactly where growth lives." }
+    ]
   },
   L: {
     name: "Leadership",
     color: "var(--c-leadership)",
-    desc: "You don't just follow paths. You clear them — and somehow others follow without you having to ask."
+    desc: "You don't just follow paths. You clear them — and somehow others follow without you having to ask.",
+    discoveries: [
+      { name: "Inventive Idris",        desc: "Idris sees solutions where others see obstacles. His ideas don't just solve problems — they reimagine them." },
+      { name: "Problem Solving Papri",  desc: "Papri breaks the impossible into steps. She's the person you want in the room when everything goes wrong." }
+    ]
   },
   S: {
     name: "Service",
     color: "var(--c-service)",
-    desc: "You find purpose in lifting others. Your strength is their strength. That's not a sacrifice — that's your calling."
+    desc: "You find purpose in lifting others. Your strength is their strength. That's not a sacrifice — that's your calling.",
+    discoveries: [
+      { name: "Compassionate Carlos", desc: "Carlos feels the weight of others' struggles as his own — and then does something about it." },
+      { name: "Teamwork Tama",        desc: "Tama knows the best things are built together. She lifts others up because that's how everyone rises." }
+    ]
   }
 };
 

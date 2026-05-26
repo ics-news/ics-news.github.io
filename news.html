@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Today's News — ICS News</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="quiz_styles.css">
+<style>
+  .news-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .filter-btn {
+    font-family: 'Indie Flower', cursive;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.35rem 1rem;
+    border: 1px solid #ffffff20;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+
+  .filter-btn:hover {
+    border-color: #ffffff40;
+    color: var(--text);
+  }
+
+  .filter-btn.active {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: #ee3f3f10;
+  }
+
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .article-card {
+    background: var(--bg2);
+    border: 1px solid #ffffff08;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: pointer;
+  }
+
+  .article-card:hover {
+    border-color: #ffffff25;
+    transform: translateY(-3px);
+  }
+
+  .article-thumb {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+    background: #1a1a22;
+  }
+
+  .article-thumb-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, #1a1a22 0%, #0f0f18 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff15;
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+  }
+
+  .article-body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .article-section {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+  }
+
+  .article-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--text);
+    margin-bottom: 0.6rem;
+    flex: 1;
+  }
+
+  .article-trail {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .article-meta {
+    font-size: 0.75rem;
+    color: #555;
+    letter-spacing: 0.04em;
+  }
+
+  /* Loading state */
+  .news-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 5rem 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* Error state */
+  .news-error {
+    padding: 3rem;
+    text-align: center;
+    color: var(--muted);
+    border: 1px solid #ffffff10;
+    background: var(--bg2);
+  }
+
+  .news-error a {
+    color: var(--gold);
+  }
+
+  .search-bar {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .search-input {
+    flex: 1;
+    background: var(--bg2);
+    border: 1px solid #ffffff15;
+    color: var(--text);
+    font-family: 'Indie Flower', cursive;
+    font-size: 1rem;
+    padding: 0.65rem 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-input::placeholder { color: var(--muted); }
+  .search-input:focus { border-color: #ffffff30; }
+
+  .search-btn {
+    font-family: 'Indie Flower', cursive;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.65rem 1.5rem;
+    background: var(--gold);
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .search-btn:hover { opacity: 0.85; }
+</style>
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html" class="nav-brand">ICS News</a>
+  <div class="nav-links">
+    <a href="news.html" class="active">Today's News</a>
+    <a href="ideals.html">Exploring Your IDEALS</a>
+    <a href="archives.html">The Archives</a>
+    <a href="mailto:icskumasi.news@gmail.com">Feedback</a>
+  </div>
+</nav>
+
+<div class="page-body">
+  <div class="page-inner">
+    <h1 class="page-title">Today's News</h1>
+    <p class="page-sub">Live stories from The Guardian.</p>
+
+    <div class="search-bar">
+      <input class="search-input" id="search-input" type="text" placeholder="Search headlines…">
+      <button class="search-btn" id="search-btn">Search</button>
+    </div>
+
+    <div class="news-filters" id="filters"></div>
+
+    <div id="news-output"></div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════
+//  CONFIG — paste your Guardian API key here
+//  Get one free at: open-platform.theguardian.com
+// ═══════════════════════════════════════════════
+const GUARDIAN_KEY = 'test';
+// ═══════════════════════════════════════════════
+
+const SECTIONS = [
+  { label: 'Top Stories', value: '' },
+  { label: 'World',        value: 'world' },
+  { label: 'Technology',   value: 'technology' },
+  { label: 'Science',      value: 'science' },
+  { label: 'Environment',  value: 'environment' },
+  { label: 'Culture',      value: 'culture' },
+  { label: 'Sport',        value: 'sport' },
+];
+
+let activeSection = '';
+let activeQuery   = '';
+
+// ── Build section filters ──────────────────────
+const filtersEl = document.getElementById('filters');
+SECTIONS.forEach(function (s) {
+  const btn = document.createElement('button');
+  btn.className   = 'filter-btn' + (s.value === activeSection ? ' active' : '');
+  btn.textContent = s.label;
+  btn.addEventListener('click', function () {
+    activeSection = s.value;
+    activeQuery   = '';
+    document.getElementById('search-input').value = '';
+    document.querySelectorAll('.filter-btn').forEach(function (b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    load();
+  });
+  filtersEl.appendChild(btn);
+});
+
+// ── Search ─────────────────────────────────────
+document.getElementById('search-btn').addEventListener('click', runSearch);
+document.getElementById('search-input').addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') runSearch();
+});
+
+function runSearch() {
+  const q = document.getElementById('search-input').value.trim();
+  if (!q) return;
+  activeQuery   = q;
+  activeSection = '';
+  document.querySelectorAll('.filter-btn').forEach(function (b) { b.classList.remove('active'); });
+  load();
+}
+
+// ── Fetch ──────────────────────────────────────
+async function fetchArticles() {
+  const params = new URLSearchParams({
+    'api-key':    GUARDIAN_KEY,
+    'order-by':   'newest',
+    'page-size':  '20',
+    'show-fields': 'headline,trailText,thumbnail,byline',
+  });
+  if (activeSection) params.set('section', activeSection);
+  if (activeQuery)   params.set('q', activeQuery);
+
+  const res = await fetch('https://content.guardianapis.com/search?' + params);
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const json = await res.json();
+  return json.response.results;
+}
+
+// ── Render ─────────────────────────────────────
+function formatDate(iso) {
+  return new Date(iso).toLocaleDateString('en-GB', {
+    day: 'numeric', month: 'short', year: 'numeric'
+  });
+}
+
+function renderArticles(articles) {
+  const out = document.getElementById('news-output');
+
+  if (!articles.length) {
+    out.innerHTML = '<div class="news-error">No stories found.</div>';
+    return;
+  }
+
+  const grid = document.createElement('div');
+  grid.className = 'news-grid';
+
+  articles.forEach(function (a) {
+    const f = a.fields || {};
+    const headline  = f.headline  || a.webTitle;
+    const trailText = f.trailText || '';
+    const thumb     = f.thumbnail || '';
+    const byline    = f.byline    || '';
+    const date      = formatDate(a.webPublicationDate);
+
+    const card = document.createElement('a');
+    card.className = 'article-card';
+    card.href      = a.webUrl;
+    card.target    = '_blank';
+    card.rel       = 'noopener noreferrer';
+
+    const imgHtml = thumb
+      ? `<img class="article-thumb" src="${thumb}" alt="" loading="lazy">`
+      : `<div class="article-thumb-placeholder">G</div>`;
+
+    card.innerHTML = `
+      ${imgHtml}
+      <div class="article-body">
+        <p class="article-section">${a.sectionName}</p>
+        <h2 class="article-headline">${headline}</h2>
+        ${trailText ? `<p class="article-trail">${trailText}</p>` : ''}
+        <p class="article-meta">${byline ? byline + ' · ' : ''}${date}</p>
+      </div>
+    `;
+
+    grid.appendChild(card);
+  });
+
+  out.innerHTML = '';
+  out.appendChild(grid);
+}
+
+function showLoading() {
+  document.getElementById('news-output').innerHTML = `
+    <div class="news-loading">
+      <div class="dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      Fetching stories
+    </div>
+  `;
+}
+
+function showError(msg) {
+  document.getElementById('news-output').innerHTML = `
+    <div class="news-error">
+      <p>${msg}</p>
+      <p style="margin-top:0.75rem;font-size:0.85rem;">
+        Make sure your API key is set — get one free at
+        <a href="https://open-platform.theguardian.com/access/" target="_blank">
+          open-platform.theguardian.com
+        </a>
+      </p>
+    </div>
+  `;
+}
+
+// ── Load ───────────────────────────────────────
+async function load() {
+  showLoading();
+  try {
+    const articles = await fetchArticles();
+    renderArticles(articles);
+  } catch (err) {
+    showError('Could not load stories. ' + err.message);
+  }
+}
+
+load();
+</script>
+
+</body>
+</html>

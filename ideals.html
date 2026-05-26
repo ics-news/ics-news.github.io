@@ -69,159 +69,56 @@
 <nav class="navbar">
   <a href="index.html" class="nav-brand">ICS News</a>
   <div class="nav-links">
-    <a href="https://news.google.com" target="_blank">Today's News</a>
+    <a href="news.html">Today's News</a>
     <a href="ideals.html" class="active">Exploring Your IDEALS</a>
     <a href="archives.html">The Archives</a>
     <a href="mailto:icskumasi.news@gmail.com">Feedback</a>
   </div>
 </nav>
 
-<div class="page-body">
-  <div class="page-inner">
-    <h1 class="page-title">Exploring Your IDEALS</h1>
-    <p class="page-sub">Six values. One community. What drives you?</p>
+<!-- The orbital diagram lives inside this container -->
+<div id="orbital">
 
-    <div class="ideals-grid">
+  <svg id="orbit-svg" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;"></svg>
 
-      <!-- Internationalism -->
-      <div class="ideal-card" style="color: #3A7BD5;">
-        <h2 class="ideal-card-name">Internationalism</h2>
-        <p class="ideal-card-tagline">"The world is my country, all mankind are my brethren."-Thomas Paine</p>
-        <p class="ideal-card-body">
-          Internationalism is the belief that no border should limit human connection, 
-          understanding, or compassion. It was never about travelling but rather
-          genuinely seeking to understand lives, cultures, and perspectives different from 
-          your own. Internationalists see diversity not as a hindrance to convenience, but as 
-          the richest resource humanity has. They build bridges where others build walls, 
-          and they know that the world's biggest problems — climate, conflict, poverty — 
-          cannot be solved by any single nation alone, but by the collective effort of all humanity.
-        </p>
-        <div class="ideal-card-traits" style="color: #3A7BD5;">
-          <span class="trait">International Mindedness</span>
-          <span class="trait">Empathy</span>
-          <span class="trait">Cultural Humility</span>
-          <span class="trait">Global Citizenship</span>
-        </div>
-      </div>
-
-      <div class="divider"></div>
-
-      <!-- Democracy -->
-      <div class="ideal-card" style="color: #8B5CF6;">
-        <h2 class="ideal-card-name">Democracy</h2>
-        <p class="ideal-card-tagline">"The voice of the people is the voice of change."-Unknown</p>
-        <p class="ideal-card-body">
-          Democracy is more than a system of government — it's a way of living together. 
-          It means believing that every person has a right to be heard, that power must 
-          always answer to the people it serves, and that disagreement is healthy when 
-          handled with respect. Democracy is fragile and requires active citizens who 
-          speak up, hold leaders accountable, and protect the right of others to do the 
-          same — even those they disagree with. It begins not in parliament, but in 
-          classrooms, communities, and everyday conversations.
-        </p>
-        <div class="ideal-card-traits" style="color: #8B5CF6;">
-          <span class="trait">Courage</span>
-          <span class="trait">Accountability</span>
-          <span class="trait">Civic Duty</span>
-          <span class="trait">Justice</span>
-        </div>
-      </div>
-
-      <div class="divider"></div>
-
-      <!-- Environmentalism -->
-      <div class="ideal-card" style="color: #059669;">
-        <h2 class="ideal-card-name">Environmentalism</h2>
-        <p class="ideal-card-tagline">"We do not inherit the earth from our ancestors — we borrow it from our children."</p>
-        <p class="ideal-card-body">
-          Environmentalism is the understanding that human life is inseparable from the 
-          natural world that sustains it. It means taking responsibility — not just 
-          recycling, but questioning systems, challenging consumption, and advocating for 
-          policies that protect the planet for future generations. Environmentalists know 
-          that climate change is not a distant threat but a present reality felt most 
-          acutely by the world's most vulnerable people. Their challenge is one of the 
-          defining moral questions of this century.
-        </p>
-        <div class="ideal-card-traits" style="color: #059669;">
-          <span class="trait">Stewardship</span>
-          <span class="trait">Long-term thinking</span>
-          <span class="trait">Responsibility</span>
-          <span class="trait">Advocacy</span>
-        </div>
-      </div>
-
-      <div class="divider"></div>
-
-      <!-- Adventure -->
-      <div class="ideal-card" style="color: #D97706;">
-        <h2 class="ideal-card-name">Adventure</h2>
-        <p class="ideal-card-tagline">"Life begins at the end of your comfort zone."</p>
-        <p class="ideal-card-body">
-          Adventure is not recklessness — it is the deliberate choice to push beyond 
-          what is safe, familiar, or easy. Adventurers understand that growth only happens 
-          when you are genuinely uncertain of the outcome. Whether that means climbing a 
-          mountain, starting something nobody believes in, or simply saying yes when every 
-          instinct says no — the spirit of adventure is what has driven every great human 
-          discovery. It teaches resilience, self-knowledge, and the humbling realisation 
-          that you are capable of far more than you thought.
-        </p>
-        <div class="ideal-card-traits" style="color: #D97706;">
-          <span class="trait">Resilience</span>
-          <span class="trait">Courage</span>
-          <span class="trait">Self-reliance</span>
-          <span class="trait">Growth mindset</span>
-        </div>
-      </div>
-
-      <div class="divider"></div>
-
-      <!-- Leadership -->
-      <div class="ideal-card" style="color: #DC2626;">
-        <h2 class="ideal-card-name">Leadership</h2>
-        <p class="ideal-card-tagline">"A leader is best when people barely know they exist."</p>
-        <p class="ideal-card-body">
-          True leadership has nothing to do with titles or authority. It is the quiet 
-          decision to take responsibility — for a group, a cause, or a moment — when 
-          no one else will. Leaders create the conditions for others to flourish. They 
-          listen more than they speak, admit when they are wrong, and measure their 
-          success not by personal achievement but by how much they have raised the 
-          people around them. Leadership is ultimately a form of service — and the best 
-          leaders know this better than anyone.
-        </p>
-        <div class="ideal-card-traits" style="color: #DC2626;">
-          <span class="trait">Vision</span>
-          <span class="trait">Integrity</span>
-          <span class="trait">Humility</span>
-          <span class="trait">Decisiveness</span>
-        </div>
-      </div>
-
-      <div class="divider"></div>
-
-      <!-- Service -->
-      <div class="ideal-card" style="color: #0891B2;">
-        <h2 class="ideal-card-name">Service</h2>
-        <p class="ideal-card-tagline">"The meaning of life is to find your gift. The purpose of life is to give it away."</p>
-        <p class="ideal-card-body">
-          Service is the recognition that your talents, your time, and your privilege 
-          are not yours alone — they are a responsibility to the people around you. 
-          It is not charity, which can preserve the distance between giver and receiver. 
-          It is accompaniment — showing up consistently, without expectation, to stand 
-          alongside someone else in their need. Service humbles you. It forces you to 
-          listen before you act, to ask before you assume. And quietly, over time, it 
-          changes both the giver and the given-to.
-        </p>
-        <div class="ideal-card-traits" style="color: #0891B2;">
-          <span class="trait">Generosity</span>
-          <span class="trait">Empathy</span>
-          <span class="trait">Commitment</span>
-          <span class="trait">Solidarity</span>
-        </div>
-      </div>
-
-    </div>
+  <!-- The centre label -->
+  <div id="orbital-centre">
+    <span>Round Square</span>
   </div>
-</div>
 
+  <!-- One div per IDEAL node — you'll position these with JS later -->
+  <div class="ideal-node" data-ideal="I">I</div>
+  <div class="ideal-node" data-ideal="D">D</div>
+  <div class="ideal-node" data-ideal="E">E</div>
+  <div class="ideal-node" data-ideal="A">A</div>
+  <div class="ideal-node" data-ideal="L">L</div>
+  <div class="ideal-node" data-ideal="S">S</div>
+
+  <!-- Discovery nodes — data-parent ties them to their IDEAL -->
+  <div class="discovery-node" data-parent="I" data-name="Diversity Dani"></div>
+  <div class="discovery-node" data-parent="I" data-name="Communication Cara"></div>
+  <div class="discovery-node" data-parent="D" data-name="Courageous Collette"></div>
+  <div class="discovery-node" data-parent="D" data-name="Self-Aware Simba"></div>
+  <div class="discovery-node" data-parent="E" data-name="Sustainability Suki"></div>
+  <div class="discovery-node" data-parent="E" data-name="Responsible Rami"></div>
+  <div class="discovery-node" data-parent="A" data-name="Inquisitive Indu"></div>
+  <div class="discovery-node" data-parent="A" data-name="Tenacious Tino"></div>
+  <div class="discovery-node" data-parent="L" data-name="Inventive Idris"></div>
+  <div class="discovery-node" data-parent="L" data-name="Problem Solving Papri"></div>
+  <div class="discovery-node" data-parent="S" data-name="Compassionate Carlos"></div>
+  <div class="discovery-node" data-parent="S" data-name="Teamwork Tama"></div>
+
+  <!-- Popup — one popup, reused for both IDEAL and Discovery clicks -->
+  <div id="popup" class="hidden">
+    <button id="popup-close">×</button>
+    <p id="popup-tag"></p>
+    <h2 id="popup-title"></h2>
+    <p id="popup-body"></p>
+    <a id="popup-link" href="#" target="_blank">Read this week's story →</a>
+  </div>
+
+</div>
+<script src="quiz_script.js"></script>
+<script src="orbital.js"></script>
 </body>
 </html>
