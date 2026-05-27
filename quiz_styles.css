@@ -498,3 +498,96 @@ h2.ideal-name {
 }
 
 #popup-link:hover { opacity: 0.6; }
+
+/* ── Hamburger navigation ───────────────────────────────────────────────── */
+.nav-toggle-input { display: none; }
+
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  padding: 0.35rem;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 1px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* ── Mobile (≤ 640px) ───────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .navbar {
+    padding: 0.875rem 1.25rem;
+  }
+
+  .nav-hamburger {
+    display: flex;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    border-bottom: 1px solid #00000012;
+    box-shadow: 0 4px 16px #00000010;
+    z-index: 499;
+  }
+
+  .nav-links a {
+    padding: 0.9rem 1.25rem;
+    border-top: 1px solid #00000008;
+    font-size: 0.9rem;
+    letter-spacing: 0.07em;
+  }
+
+  /* Reveal menu when checkbox is checked */
+  .nav-toggle-input:checked ~ .nav-links {
+    display: flex;
+  }
+
+  /* Animate hamburger → X */
+  .nav-toggle-input:checked ~ .nav-hamburger span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .nav-toggle-input:checked ~ .nav-hamburger span:nth-child(2) {
+    opacity: 0;
+  }
+  .nav-toggle-input:checked ~ .nav-hamburger span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Orbital diagram */
+  #orbital {
+    width: min(500px, 92vw);
+    height: min(500px, 92vw);
+    margin: 3rem auto 2rem;
+  }
+
+  /* Quiz screens */
+  .screen {
+    padding: 4.5rem 1.25rem 3rem;
+  }
+
+  /* Shared page layout */
+  .page-body {
+    padding: 5rem 1.25rem 3rem;
+  }
+
+  /* Popup */
+  #popup {
+    padding: 1.5rem;
+  }
+}

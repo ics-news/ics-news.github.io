@@ -4,9 +4,11 @@ const centreX = orbital.offsetWidth / 2;
 const centreY = orbital.offsetHeight / 2;
 
 
-const idealRadius = 180;
-
-const discoveryRadius = 55;
+const scale           = orbital.offsetWidth / 500;
+const idealRadius     = 180 * scale;
+const discoveryRadius =  55 * scale;
+const idealHalf       =  30 * scale;
+const discHalf        =  18 * scale;
 
 
 const idealNodes = document.querySelectorAll('.ideal-node');
@@ -57,6 +59,16 @@ discoveryNodes.forEach(function(node) {
   node.style.backgroundImage = `url("assets/discoveries/${encodedName}.png")`;
 });
 
+idealNodes.forEach(function(node) {
+  node.style.width    = (60 * scale) + 'px';
+  node.style.height   = (60 * scale) + 'px';
+  node.style.fontSize = (1.3 * scale) + 'rem';
+});
+discoveryNodes.forEach(function(node) {
+  node.style.width  = (36 * scale) + 'px';
+  node.style.height = (36 * scale) + 'px';
+});
+
 let rotationAngle = 0;
 let discoveryAngle = 0;
 
@@ -72,8 +84,8 @@ function animate() {
     const x = centreX + idealRadius * Math.cos(angle);
     const y = centreY + idealRadius * Math.sin(angle);
 
-    node.style.left = (x - 30) + 'px';
-    node.style.top  = (y - 30) + 'px';
+    node.style.left = (x - idealHalf) + 'px';
+    node.style.top  = (y - idealHalf) + 'px';
 
     node._cx = x;
     node._cy = y;
@@ -94,8 +106,8 @@ function animate() {
     const x = parent._cx + discoveryRadius * Math.cos(angle);
     const y = parent._cy + discoveryRadius * Math.sin(angle);
 
-    node.style.left = (x - 18) + 'px';
-    node.style.top  = (y - 18) + 'px';
+    node.style.left = (x - discHalf) + 'px';
+    node.style.top  = (y - discHalf) + 'px';
   });
 
   requestAnimationFrame(animate);
