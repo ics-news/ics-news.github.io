@@ -184,7 +184,7 @@ const IDEALS = {
     name: "Leadership",
     color: "var(--c-leadership)",
     desc: "You don't just follow paths. You clear them — and somehow others follow without you having to ask.",
-    discoveries: [
+    disco8veries: [
       { name: "Inventive Idris",        desc: "Idris sees solutions where others see obstacles. His ideas don't just solve problems — they reimagine them." },
       { name: "Problem Solving Papri",  desc: "Papri breaks the impossible into steps. She's the person you want in the room when everything goes wrong." }
     ]
@@ -194,7 +194,7 @@ const IDEALS = {
     color: "var(--c-service)",
     desc: "You find purpose in lifting others. Your strength is their strength. That's not a sacrifice — that's your calling.",
     discoveries: [
-      { name: "Compassionate Carlos", desc: "Carlos feels the weight of others' struggles as his own — and then does something about it." },
+      { name: "Compassionate Carlos", desc: "Carlos feels the weight of others' struggles as his own — and then does something about it."},
       { name: "Teamwork Tama",        desc: "Tama knows the best things are built together. She lifts others up because that's how everyone rises." }
     ]
   }
