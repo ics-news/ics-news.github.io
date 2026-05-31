@@ -141,7 +141,10 @@ idealNodes.forEach(function(node) {
       + ' Discoveries: ' + data.discoveries.map(function(d) { return d.name; }).join(' · ');
     popLink.href = NEWS_URLS[data.name];
 
-    // Show the popup
+    const popImg = document.getElementById('popup-img');
+    popImg.style.display = 'none';
+    popup.classList.remove('popup-split');
+
     popup.classList.remove('hidden');
   });
 });
@@ -159,6 +162,12 @@ discoveryNodes.forEach(function(node) {
     popTitle.style.color = data.color;
     popBody.textContent  = discovery.desc;
     popLink.href         = NEWS_URLS[data.name];
+
+    const popImg = document.getElementById('popup-img');
+    const encodedName = node.dataset.name.replace(/ /g, '%20');
+    popImg.src = 'assets/discoveries/' + encodedName + '.png';
+    popImg.style.display = 'block';
+    popup.classList.add('popup-split');
 
     popup.classList.remove('hidden');
   });

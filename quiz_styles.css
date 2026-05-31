@@ -450,6 +450,23 @@ h2.ideal-name {
   box-shadow: 0 8px 40px #00000018;
 }
 
+#popup-img {
+  display: none;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+#popup.popup-split {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.popup-text { flex: 1; min-width: 0; }
+
 #popup-close {
   position: absolute;
   top: 1rem;

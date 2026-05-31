@@ -1562,6 +1562,55 @@ popClose.addEventListener('click', function() {
   popup.classList.add('hidden');
 });
 </code></pre>
+
+<h3>Split layout for discovery popups</h3>
+<p>Discovery nodes show a character photo beside the text. Rather than creating a second popup element, the single <code>#popup</code> switches between two layouts by toggling a CSS class.</p>
+
+<h4>The HTML</h4>
+<p>An <code>&lt;img id="popup-img"&gt;</code> sits as the first child of <code>#popup</code>. The tag, title, body, and link are wrapped in <code>&lt;div class="popup-text"&gt;</code> so they can be treated as a single flex child.</p>
+
+<pre><code>&lt;div id="popup" class="hidden"&gt;
+  &lt;button id="popup-close"&gt;×&lt;/button&gt;
+  &lt;img id="popup-img" src="" alt=""&gt;
+  &lt;div class="popup-text"&gt;
+    &lt;p id="popup-tag"&gt;&lt;/p&gt;
+    &lt;h2 id="popup-title"&gt;&lt;/h2&gt;
+    &lt;p id="popup-body"&gt;&lt;/p&gt;
+    &lt;a id="popup-link" href="#"&gt;Read this week's story →&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+<h4>The CSS</h4>
+<pre><code>/* Default: image hidden, block layout */
+#popup-img {
+  display: none;
+  width: 110px; height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* Adding .popup-split switches the whole popup to a row */
+#popup.popup-split {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.popup-text { flex: 1; min-width: 0; }</code></pre>
+
+<h4>The JavaScript</h4>
+<pre><code>// IDEAL click — plain stacked layout
+popImg.style.display = 'none';
+popup.classList.remove('popup-split');
+
+// Discovery click — image beside text
+const encodedName = node.dataset.name.replace(/ /g, '%20');
+popImg.src = 'assets/discoveries/' + encodedName + '.png';
+popImg.style.display = 'block';
+popup.classList.add('popup-split');</code></pre>
+
+<p>The key insight: <code>display: flex</code> is applied by the <em>class</em>, not hardcoded on the element. Adding <code>.popup-split</code> turns on flexbox and the image slides into the layout; removing it reverts to the default block stack. The image path reuses the same filename convention already used for the circular discovery nodes, so no extra data is needed anywhere.</p>
 </section>
 
 <!-- ── Chapter 22 ── -->
