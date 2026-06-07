@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICS Kumasi News and Creator Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="quiz_styles.css">
+<style>
+  .links-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+  }
+
+  .hub-link {
+    display: block;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid #00000015;
+    text-decoration: none;
+    color: var(--text);
+    text-align: left;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .hub-link:hover {
+    border-color: var(--gold);
+    transform: translateX(4px);
+  }
+
+  .hub-link-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+
+  .hub-link-name em {
+    font-style: normal;
+    color: var(--gold);
+  }
+
+  .hub-link-desc {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin-top: 0.25rem;
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Navbar ── -->
+<nav class="navbar">
+  <a href="landing.html" class="nav-brand">Home</a>
+  <input type="checkbox" id="nav-toggle" class="nav-toggle-input">
+  <label for="nav-toggle" class="nav-hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </label>
+  <div class="nav-links">
+    <a href="news.html">Today's News</a>
+    <a href="ideals.html">Exploring Your IDEALS</a>
+    <a href="archives.html">The Archives</a>
+    <a href="info.html">Round Square &amp; More</a>
+    <a href="mailto:icskumasi.news@gmail.com">Feedback</a>
+  </div>
+</nav>
+
+<div class="screen active" id="screen-landing">
+  <div class="inner">
+    <p class="eyebrow">Home</p>
+    <h1 class="title">Welcome to the<br><em>Landing Page</em></h1>
+    <div class="links-grid">
+      <a class="hub-link" href="index.html">
+        <div class="hub-link-name">Which <em>IDEAL</em> are you? →</div>
+        <div class="hub-link-desc">Take the quiz and get matched with a story written for you.</div>
+      </a>
+      <a class="hub-link" href="news.html">
+        <div class="hub-link-name">Today's <em>News</em> →</div>
+        <div class="hub-link-desc">Catch up on the latest news.</div>
+      </a>
+      <a class="hub-link" href="ideals.html">
+        <div class="hub-link-name">Exploring Your <em>IDEALS</em> →</div>
+        <div class="hub-link-desc">Meet the six IDEALS and what each one stands for.</div>
+      </a>
+      <a class="hub-link" href="archives.html">
+        <div class="hub-link-name">The <em>Archives</em> →</div>
+        <div class="hub-link-desc">Browse past stories and editions.</div>
+      </a>
+      <a class="hub-link" href="info.html">
+        <div class="hub-link-name">Round Square <em>&amp; More</em> →</div>
+        <div class="hub-link-desc">Background on Round Square and other things worth knowing.</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <img src="assets/POSTER FOOTER 1.png" alt="ics watermark" class="footer-img">
+</footer>
+
+</body>
+</html>
