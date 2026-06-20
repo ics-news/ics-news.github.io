@@ -8,38 +8,122 @@
 <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="quiz_styles.css">
 <style>
-  .gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 1rem;
+  .archive-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
   }
 
-  /* Each image wrapper */
-  .gallery-item {
+  .filter-btn {
+    font-family: 'Indie Flower', cursive;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.35rem 1rem;
+    border: 1px solid #00000020;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+
+  .filter-btn:hover {
+    border-color: #00000040;
+    color: var(--text);
+  }
+
+  .filter-btn.active {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: #ee3f3f10;
+  }
+
+  .archive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .archive-card {
+    background: var(--bg2);
+    border: 1px solid #00000008;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .archive-card:hover {
+    border-color: #00000025;
+    transform: translateY(-3px);
+  }
+
+  .archive-thumb-wrap {
     position: relative;
     aspect-ratio: 1 / 1;
     overflow: hidden;
-    cursor: pointer;
     background: var(--bg2);
   }
 
-  .gallery-item img {
+  .archive-thumb-wrap img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* Blurred by default */
+    /* Blurred by default — same reveal-on-hover effect as before */
     filter: blur(6px);
-    transform: scale(1.05); /* hides blur edges */
+    transform: scale(1.05);
     transition: filter 0.4s ease, transform 0.4s ease;
   }
 
-  /* Hovering removes the blur */
-  .gallery-item:hover img {
+  .archive-card:hover .archive-thumb-wrap img {
     filter: blur(0px);
     transform: scale(1);
   }
 
-  /* Lightbox overlay */
+  .archive-thumb-video {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #00000012 0%, #00000005 100%);
+  }
+
+  .archive-play-icon {
+    width: 0;
+    height: 0;
+    border-top: 14px solid transparent;
+    border-bottom: 14px solid transparent;
+    border-left: 22px solid var(--gold);
+    opacity: 0.65;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+
+  .archive-card:hover .archive-play-icon {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+
+  .archive-body {
+    padding: 1rem 1.1rem;
+  }
+
+  .archive-caption {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+
+  .archive-year {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* Lightbox overlay (images only — videos open in a new tab) */
   .lightbox {
     display: none;
     position: fixed;
@@ -73,6 +157,28 @@
     line-height: 1;
   }
 
+  .archive-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 5rem 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .archive-error {
+    padding: 3rem;
+    text-align: center;
+    color: var(--muted);
+    border: 1px solid #00000010;
+    background: var(--bg2);
+  }
+
+  .archive-error a { color: var(--gold); }
+
   .empty-state {
     text-align: center;
     padding: 4rem 2rem;
@@ -85,7 +191,7 @@
 <body>
 
 <nav class="navbar">
-  <a href="index.html" class="nav-brand">Home</a>
+  <a href="landing.html" class="nav-brand">Home</a>
   <input type="checkbox" id="nav-toggle" class="nav-toggle-input">
   <label for="nav-toggle" class="nav-hamburger" aria-label="Open menu">
     <span></span><span></span><span></span>
@@ -102,13 +208,15 @@
 <div class="page-body">
   <div class="page-inner">
     <h1 class="page-title">The Archives</h1>
-    <p class="page-sub">Hover to preview. Click to open.</p>
+    <p class="page-sub">Photos and videos from past academic years. Hover a photo to preview, click to open. Click a video to watch it.</p>
 
-    <div class="gallery-grid" id="gallery"></div>
+    <div class="archive-filters" id="filters"></div>
+
+    <div class="archive-grid" id="gallery"></div>
   </div>
 </div>
 
-<!-- Lightbox -->
+<!-- Lightbox (images only) -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <span class="lightbox-close">×</span>
   <img id="lightbox-img" src="" alt="">
@@ -116,62 +224,205 @@
 
 <script>
 // ═══════════════════════════════════════════════════════════════
-//  ARCHIVES CONFIG
-//  Add your image filenames here as you upload them to /assets/
-//  Example: "week1-poster.jpg", "event-photo.png"
-//  Supported formats: jpg, jpeg, png, gif, webp
+//  ARCHIVES CONFIG — content now lives in a Google Sheet, not here
+//
+//  Sheet columns (row 1 = headers):
+//    Type | URL | Year | Caption
+//    Type    "image" or "video"
+//    URL     the Google Drive share link — right-click the file in Drive
+//            → "Get link" → "Anyone with the link can view"
+//            Works for both photos and videos. No GitHub upload needed.
+//    Year    type the academic year by hand, e.g. "2024/2025"
+//            (NOT calculated automatically — must be entered manually)
+//    Caption short description (optional)
+//
+//  To update SHEET_CSV_URL if you ever recreate the sheet:
+//    1. File → Share → Publish to web → pick the Archives tab → Publish
+//    2. Google gives you a link ending in /pubhtml?gid=...&single=true
+//    3. Change  pubhtml  to  pub  and replace everything after the ?
+//       with  output=csv&gid=SAME_GID_NUMBER
+//       (Sheet1/the first tab can also just use  output=csv  with no gid)
 // ═══════════════════════════════════════════════════════════════
-const IMAGES = [
-  "0002.png",
-  "0001.png",
-  "0003.png"
-  // "week1.jpg",
-  // "week2.jpg",
-  // "event1.png",
-];
+const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRga-yt0dFE0ubFnEH5JuaHeuFjf6QEafFr8hZz-jAUm_oM-DoPd9PIkTorJVnEEmkKNfRaOoSUtGB1/pub?output=csv';
 // ═══════════════════════════════════════════════════════════════
 
-const gallery = document.getElementById('gallery');
+let ITEMS = [];
+let activeYear = 'All';
 
-if (IMAGES.length === 0) {
-  gallery.innerHTML = `
-    <div class="empty-state" style="grid-column: 1 / -1;">
-      No news yet!
-    </div>
-    
-  `;
-// add filenames to the IMAGES array in archives.html<br>
-//and upload the files to your /assets/ folder on GitHub.
-} else {
-  IMAGES.forEach(filename => {
-    const item = document.createElement('div');
-    item.className = 'gallery-item';
+const gallery     = document.getElementById('gallery');
+const filtersEl   = document.getElementById('filters');
+const lightbox    = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
 
-    const img = document.createElement('img');
-    img.src = `assets/${filename}`;
-    img.alt = filename;
-    // clicking opens the lightbox
-    item.onclick = () => openLightbox(`assets/${filename}`);
+// ── CSV fetch helpers ──────────────────────────────────────────
+function splitCSVLine(line) {
+  const result = [];
+  let current = '';
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    if (line[i] === '"') { inQuotes = !inQuotes; }
+    else if (line[i] === ',' && !inQuotes) { result.push(current); current = ''; }
+    else { current += line[i]; }
+  }
+  result.push(current);
+  return result.map(v => v.replace(/^"|"$/g, '').trim());
+}
 
-    item.appendChild(img);
-    gallery.appendChild(item);
+function parseCSV(text) {
+  const lines = text.trim().split(/\r?\n/);
+  const headers = splitCSVLine(lines[0]);
+  return lines.slice(1)
+    .filter(l => l.trim())
+    .map(line => {
+      const vals = splitCSVLine(line);
+      const obj = {};
+      headers.forEach((h, i) => { obj[h] = (vals[i] || '').trim(); });
+      return obj;
+    });
+}
+
+async function fetchCSV(csvUrl) {
+  const res = await fetch(csvUrl);
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  return parseCSV(await res.text());
+}
+
+// ── Convert a Google Drive share link to a URL the browser can load directly.
+//    Drive share links look like: https://drive.google.com/file/d/FILE_ID/view...
+//    They can't be used directly in <img src> or window.open for embedding, so
+//    we extract the file ID and build the correct format for each media type.
+function resolveDriveUrl(rawUrl, type) {
+  const match = rawUrl.match(/\/file\/d\/([^/?#]+)/);
+  if (!match) return rawUrl; // not a Drive link — use as-is
+  const id = match[1];
+  // Images: uc?export=view gives a direct, embeddable image URL
+  // Videos: /preview gives a Drive-hosted player page that opens cleanly in a new tab
+  return type === 'video'
+    ? `https://drive.google.com/file/d/${id}/preview`
+    : `https://drive.google.com/uc?export=view&id=${id}`;
+}
+
+// ── Turn a raw sheet row into something the page can render ────
+function normalizeItem(row) {
+  const type   = (row.Type || '').toLowerCase() === 'video' ? 'video' : 'image';
+  const rawUrl = (row.URL || '').trim();
+  const url    = resolveDriveUrl(rawUrl, type);
+  return { type, url, year: row.Year || '', caption: row.Caption || '' };
+}
+
+// ── Year filter buttons, built from whatever years actually appear ──
+function buildFilters() {
+  const years = [...new Set(ITEMS.map(i => i.year).filter(Boolean))]
+    .sort()
+    .reverse(); // "2024/2025" sorts after "2023/2024" — newest first
+
+  filtersEl.innerHTML = '';
+  ['All', ...years].forEach(year => {
+    const btn = document.createElement('button');
+    btn.className   = 'filter-btn' + (year === activeYear ? ' active' : '');
+    btn.textContent = year;
+    btn.addEventListener('click', () => {
+      activeYear = year;
+      filtersEl.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderGrid();
+    });
+    filtersEl.appendChild(btn);
+  });
+}
+
+// ── Render the grid for whichever year is currently selected ────
+function renderGrid() {
+  const items = activeYear === 'All' ? ITEMS : ITEMS.filter(i => i.year === activeYear);
+
+  if (!items.length) {
+    gallery.innerHTML = `<div class="empty-state" style="grid-column: 1 / -1;">Nothing here yet!</div>`;
+    return;
+  }
+
+  gallery.innerHTML = '';
+  items.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'archive-card';
+
+    const meta = item.year
+      ? `${item.year} · ${item.type === 'video' ? 'Video' : 'Photo'}`
+      : (item.type === 'video' ? 'Video' : 'Photo');
+
+    if (item.type === 'video') {
+      card.innerHTML = `
+        <div class="archive-thumb-wrap">
+          <div class="archive-thumb-video"><span class="archive-play-icon"></span></div>
+        </div>
+        <div class="archive-body">
+          ${item.caption ? `<p class="archive-caption">${item.caption}</p>` : ''}
+          <p class="archive-year">${meta}</p>
+        </div>
+      `;
+      // Video links vary by host (Drive, etc.) — open in a new tab rather than embed
+      card.addEventListener('click', () => window.open(item.url, '_blank', 'noopener'));
+    } else {
+      card.innerHTML = `
+        <div class="archive-thumb-wrap">
+          <img src="${item.url}" alt="${item.caption}" loading="lazy">
+        </div>
+        <div class="archive-body">
+          ${item.caption ? `<p class="archive-caption">${item.caption}</p>` : ''}
+          <p class="archive-year">${meta}</p>
+        </div>
+      `;
+      card.addEventListener('click', () => openLightbox(item.url));
+    }
+
+    gallery.appendChild(card);
   });
 }
 
 function openLightbox(src) {
-  document.getElementById('lightbox-img').src = src;
-  document.getElementById('lightbox').classList.add('open');
+  lightboxImg.src = src;
+  lightbox.classList.add('open');
 }
-
 function closeLightbox() {
-  document.getElementById('lightbox').classList.remove('open');
-  document.getElementById('lightbox-img').src = '';
+  lightbox.classList.remove('open');
+  lightboxImg.src = '';
 }
-
-// Close lightbox with Escape key
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeLightbox();
 });
+
+// ── Loading / error states ──────────────────────────────────────
+function showLoading() {
+  gallery.innerHTML = `
+    <div class="archive-loading" style="grid-column: 1 / -1;">
+      <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+      Loading the archives
+    </div>`;
+}
+
+function showError(msg) {
+  gallery.innerHTML = `
+    <div class="archive-error" style="grid-column: 1 / -1;">
+      <p>${msg}</p>
+      <p style="margin-top:0.75rem;font-size:0.85rem;">
+        Hmm... Maybe the resource display might be down. Check back later.
+      </p>
+    </div>`;
+}
+
+// ── Load ────────────────────────────────────────────────────────
+async function load() {
+  showLoading();
+  try {
+    const rows = await fetchCSV(SHEET_CSV_URL);
+    ITEMS = rows.map(normalizeItem).filter(i => i.url);
+    buildFilters();
+    renderGrid();
+  } catch (err) {
+    showError('Could not load the archives. ' + err.message);
+  }
+}
+
+load();
 </script>
 
 </body>

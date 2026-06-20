@@ -1,14 +1,70 @@
-// ═══════════════════════════════════════════════
-//  WEEKLY CONFIG — swap these URLs each week
-// ═══════════════════════════════════════════════
-const NEWS_URLS = {
-  Internationalism: "https://hir.harvard.edu/breaking-gender-barriers-an-interview-with-nobel-peace-prize-laureate-malala-yousafzai",
-  Democracy:        "https://online.ucpress.edu/currenthistory/article/120/823/43/115914/Chile-s-Constitutional-Moment",
-  Environmentalism: "https://www.goodgoodgood.co/articles/ocean-cleanup-pacific-garbage-patch-ted-talk",
-  Adventure:        "https://www.mornflake.com/roz-savage-ocean-rower/",
-  Leadership:       "https://www.carnegie.org/our-work/article/how-lead-successful-movement-peace",
-  Service:          "https://news.harvard.edu/gazette/story/2018/05/harvards-paul-farmer-on-traveling-the-world-to-fight-inequality-in-health"
-};
+// ═══════════════════════════════════════════════════════════════
+//  WEEKLY NEWS LINKS — now live in a Google Sheet, not here
+//
+//  Sheet columns (row 1 = headers):
+//    Ideal | URL
+//    Ideal = one of: Internationalism, Democracy, Environmentalism,
+//            Adventure, Leadership, Service (spelled exactly like that)
+//    URL   = the link to that IDEAL's story for the week
+//
+//  To update NEWS_CSV_URL if you ever recreate the sheet:
+//    1. File → Share → Publish to web → pick the News URLs tab → Publish
+//    2. Google gives you a link ending in /pubhtml?gid=...&single=true
+//    3. Change  pubhtml  to  pub  and replace everything after the ?
+//       with  output=csv&gid=SAME_GID_NUMBER
+//    e.g. .../pub?output=csv&gid=735754838
+// ═══════════════════════════════════════════════════════════════
+const NEWS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRga-yt0dFE0ubFnEH5JuaHeuFjf6QEafFr8hZz-jAUm_oM-DoPd9PIkTorJVnEEmkKNfRaOoSUtGB1/pub?output=csv&gid=735754838';
+// ═══════════════════════════════════════════════════════════════
+
+let NEWS_URLS = {};
+
+// Parses a CSV string into an array of objects keyed by the header row
+function parseCSV(text) {
+  const lines = text.trim().split(/\r?\n/);
+  const headers = splitCSVLine(lines[0]);
+  return lines.slice(1)
+    .filter(l => l.trim())
+    .map(line => {
+      const vals = splitCSVLine(line);
+      const obj = {};
+      headers.forEach((h, i) => { obj[h] = (vals[i] || '').trim(); });
+      return obj;
+    });
+}
+
+// Splits one CSV line respecting double-quoted fields (handles commas inside quotes)
+function splitCSVLine(line) {
+  const result = [];
+  let current = '';
+  let inQuotes = false;
+  for (let i = 0; i < line.length; i++) {
+    if (line[i] === '"') { inQuotes = !inQuotes; }
+    else if (line[i] === ',' && !inQuotes) { result.push(current); current = ''; }
+    else { current += line[i]; }
+  }
+  result.push(current);
+  return result.map(v => v.replace(/^"|"$/g, '').trim());
+}
+
+async function fetchCSV(csvUrl) {
+  const res = await fetch(csvUrl);
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  return parseCSV(await res.text());
+}
+
+// Loads NEWS_URLS from the sheet once. Anything that reads NEWS_URLS should
+// `await newsUrlsReady` first, since the fetch happens in the background.
+const newsUrlsReady = (async () => {
+  try {
+    const rows = await fetchCSV(NEWS_CSV_URL);
+    rows.forEach(row => {
+      if (row.Ideal && row.URL) NEWS_URLS[row.Ideal] = row.URL;
+    });
+  } catch (err) {
+    console.error("Could not load this week's news links from the sheet:", err);
+  }
+})();
 
 // ── Cookie helpers ─────────────────────────────────────────────────────────
 
@@ -26,7 +82,8 @@ function getCookie(name) {
 }
 
 // ── On page load: check if returning visitor ───────────────────────────────
-window.addEventListener('load', function () {
+window.addEventListener('load', async function () {
+  await newsUrlsReady;
   const previousIdeal = getCookie('userIdeal');
 
   if (previousIdeal && IDEALS[previousIdeal]) {
@@ -262,7 +319,8 @@ function pickAnswer(ideal) {
 function showResult() {
   showScreen('screen-calc');
 
-  setTimeout(() => {
+  setTimeout(async () => {
+    await newsUrlsReady;
     const winner = Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0];
     const ideal = IDEALS[winner];
     const newsUrl = NEWS_URLS[ideal.name];
