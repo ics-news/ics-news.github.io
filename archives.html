@@ -299,7 +299,7 @@ function resolveDriveUrl(rawUrl, type) {
   // Videos: /preview gives a Drive-hosted player page that opens cleanly in a new tab
   return type === 'video'
     ? `https://drive.google.com/file/d/${id}/preview`
-    : `https://drive.google.com/uc?export=view&id=${id}`;
+    : `https://lh3.googleusercontent.com/d/${id}`;
 }
 
 // ── Turn a raw sheet row into something the page can render ────
