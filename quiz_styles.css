@@ -12,6 +12,7 @@
   --text: #0D0D12;
   --muted: #666;
   --gold: #ee3f3f;
+  --green: #1d592c;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -38,29 +39,30 @@ body {
 }
 
 .nav-brand {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 0.9rem;
   font-weight: 700;
   color: var(--text);
   text-decoration: none;
+  
 }
 
 .nav-links {
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 .nav-links a {
-  font-family: 'Indie Flower', cursive;
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
+  font-family: 'Montserrat', cursive;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--muted);
   text-decoration: none;
   transition: color 0.2s;
 }
 
-.nav-links a:hover { color: var(--text); }
+.nav-links a:hover { color: var(--green); text-decoration:underline;}
 .nav-links a.active { color: var(--gold); }
 
 /* ── Quiz screens ────────────────────────────────────────────────────────── */
@@ -352,6 +354,7 @@ h2.ideal-name {
   display: block;
   min-height: 100vh;
   padding: 6rem 2rem 5rem;
+
 }
 
 .page-inner {
@@ -538,7 +541,7 @@ h2.ideal-name {
   transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
-/* ── Mobile (≤ 640px) ───────────────────────────────────────────────────── */
+/* ! Mobile (≤ 640px)*/
 @media (max-width: 640px) {
   .navbar {
     padding: 0.875rem 1.25rem;
@@ -570,12 +573,12 @@ h2.ideal-name {
     letter-spacing: 0.07em;
   }
 
-  /* Reveal menu when checkbox is checked */
+  
   .nav-toggle-input:checked ~ .nav-links {
     display: flex;
   }
 
-  /* Animate hamburger → X */
+  
   .nav-toggle-input:checked ~ .nav-hamburger span:nth-child(1) {
     transform: translateY(7px) rotate(45deg);
   }

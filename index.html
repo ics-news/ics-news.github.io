@@ -7,6 +7,49 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="quiz_styles.css">
+<style>
+  .links-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+  }
+
+  .hub-link {
+    display: block;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid #00000015;
+    text-decoration: none;
+    color: var(--text);
+    text-align: left;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .hub-link:hover {
+    border-color: var(--gold);
+    transform: translateX(4px);
+  }
+
+  .hub-link-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+
+  .hub-link-name em {
+    font-style: normal;
+    color: var(--gold);
+  }
+
+  .hub-link-desc {
+    font-size: 0.95rem;
+    color: var(--muted);
+    margin-top: 0.25rem;
+  }
+  .screen active{
+    overflow-y: auto;
+  }
+</style>
 </head>
 <body>
 
@@ -26,70 +69,38 @@
   </div>
 </nav>
 
-
 <div class="screen active" id="screen-landing">
   <div class="inner">
-    <p class="eyebrow">ICS News</p>
-    <h1 class="title">Which <em>IDEAL</em><br>are you?</h1>
-    <button class="btn-primary" onclick="startQuiz()">Begin →</button>
-  </div>
-</div>
-
-<!-- Returning user landing -->
-<div class="screen" id="screen-returning">
-  <div class="inner">
-    <p class="eyebrow">Welcome back</p>
-    <p class="returning-label">Last time, you were</p>
-    <h2 class="ideal-name returning-ideal" id="returning-ideal-name"></h2>
-    <p class="returning-sub">A new story is waiting for you.</p>
-    <a class="btn-news returning-news-btn" id="returning-news-btn" href="#" target="_blank">
-      Read this week's story →
-    </a>
-    <button class="restart" onclick="startQuiz()">Retake the quiz</button>
-  </div>
-</div>
-
-<!-- Quiz -->
-<div class="screen" id="screen-quiz">
-  <div class="inner">
-    <p class="q-label" id="q-label">Question 1 of 8</p>
-    <div class="quiz-inner" id="quiz-inner">
-      <h2 class="question" id="question-text"></h2>
-      <div class="options" id="options-list"></div>
+    <p class="eyebrow">Home</p>
+    <h1 class="title">Welcome to the<br><em>Landing Page</em></h1>
+    <div class="links-grid">
+      <a class="hub-link" href="index.html">
+        <div class="hub-link-name">Which <em>IDEAL</em> are you? →</div>
+        <div class="hub-link-desc">Take the quiz and get matched with a story written for you.</div>
+      </a>
+      <a class="hub-link" href="news.html">
+        <div class="hub-link-name">Today's <em>News</em> →</div>
+        <div class="hub-link-desc">Catch up on the latest news.</div>
+      </a>
+      <a class="hub-link" href="ideals.html">
+        <div class="hub-link-name">Exploring Your <em>IDEALS</em> →</div>
+        <div class="hub-link-desc">Meet the six IDEALS and what each one stands for.</div>
+      </a>
+      <a class="hub-link" href="archives.html">
+        <div class="hub-link-name">The <em>Archives</em> →</div>
+        <div class="hub-link-desc">Browse past stories and editions.</div>
+      </a>
+      <a class="hub-link" href="info.html">
+        <div class="hub-link-name">Round Square <em>&amp; More</em> →</div>
+        <div class="hub-link-desc">Background on Round Square and other things worth knowing.</div>
+      </a>
     </div>
   </div>
 </div>
-
-<!-- Calculating -->
-<div class="screen" id="screen-calc">
-  <div class="inner">
-    <p class="eyebrow">Getting your results</p>
-    <div class="dots">
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-    </div>
-  </div>
-</div>
-
-<!-- Result -->
-<div class="screen" id="screen-result">
-  <div class="inner">
-    <p class="result-badge" id="result-badge">Your IDEAL</p>
-    <h2 class="ideal-name" id="ideal-name"></h2>
-    <p class="ideal-desc" id="ideal-desc"></p>
-    <a class="btn-news" id="btn-news" href="#" target="_blank">Read this week's story →</a>
-    <button class="restart" onclick="restart()">Start again</button>
-  </div>
-</div>
-
 
 <footer class="site-footer">
   <img src="assets/POSTER FOOTER 1.png" alt="ics watermark" class="footer-img">
-
-
 </footer>
 
-<script src="quiz_script.js"></script>
 </body>
 </html>
