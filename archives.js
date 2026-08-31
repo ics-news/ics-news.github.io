@@ -47,31 +47,38 @@ function resolveDriveUrl(rawUrl, type) {
   const match = rawUrl.match(/\/file\/d\/([^/?#]+)/);
   if (!match) return rawUrl; // not a Drive link — use as-is
   const id = match[1];
-  // Images: uc?export=view gives a direct, embeddable image URL
-  // Videos (including .MOV): return the file ID for embedded playback
-  return type === 'video'
-    ? id  // Return just the ID; will be used for embedded player
-    : `https://lh3.googleusercontent.com/d/${id}`;
+
+  if (type === 'video') {
+    return `https://drive.google.com/file/d/${id}/preview`;
+  }
+
+  // Drive image URLs are more reliable when opened through the Google Drive viewer
+  return `https://drive.google.com/uc?export=view&id=${id}`;
 }
 
 function normalizeItem(row) {
   const rawUrl = (row.URL || '').trim();
   let type = 'image';
-  
-  // Auto-detect based on file extension
-  const videoExtensions = /\.(mov|mp4|webm|m4v|avi|mkv|flv|wmv|3gp)$/i;
-  const imageExtensions = /\.(jpg|jpeg|png|gif|webp|bmp|svg)$/i;
-  
-  if (videoExtensions.test(rawUrl)) {
-    type = 'video';
-  } else if (imageExtensions.test(rawUrl)) {
-    type = 'image';
-  } else if (rawUrl.includes('drive.google.com')) {
-    // For Google Drive links without visible extensions, default to video
-    // (videos are more valuable to embed than images)
-    type = 'video';
+
+  const explicitType = (row.Type || '').trim().toLowerCase();
+  if (explicitType === 'video' || explicitType === 'image') {
+    type = explicitType;
+  } else {
+    // Auto-detect by extension when the URL itself reveals it.
+    const videoExtensions = /\.(mov|mp4|webm|m4v|avi|mkv|flv|wmv|3gp)$/i;
+    const imageExtensions = /\.(jpg|jpeg|png|gif|webp|bmp|svg|heic|heif)$/i;
+
+    if (videoExtensions.test(rawUrl)) {
+      type = 'video';
+    } else if (imageExtensions.test(rawUrl)) {
+      type = 'image';
+    } else if (rawUrl.includes('drive.google.com')) {
+      // Google Drive share links hide the original extension, so default to image
+      // to keep photo previews inside the page instead of misclassifying them as video.
+      type = 'image';
+    }
   }
-  
+
   const url = resolveDriveUrl(rawUrl, type);
   return { type, url, year: row.Year || '', caption: row.Caption || '' };
 }
@@ -193,7 +200,7 @@ async function load() {
     renderGrid();
   } catch (err) {
     showError('Could not load the archives.');
-    console.warn( + err.message)
+    console.warn(err.message);
   }
 }
 
