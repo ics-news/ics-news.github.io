@@ -8,7 +8,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="site_styles.css">
-<style>
+<style> 
+/*This page's specific styles.*/
+/*TODO: move this to external css for better management*/
   .links-grid {
     display: flex;
     flex-direction: column;
@@ -54,14 +56,15 @@
 </head>
 <body>
 
-<!-- ── Navbar ── -->
+<!--!  Navbar ── -->
 <nav class="navbar">
   <a href="index.html" class="nav-brand">Home</a>
   <input type="checkbox" id="nav-toggle" class="nav-toggle-input">
+  
   <label for="nav-toggle" class="nav-hamburger" aria-label="Open menu">
     <span></span><span></span><span></span>
   </label>
-  <div class="nav-links">
+  <div class="nav-links"  >
     <a href="news.html">Today's News</a>
     <a href="ideals.html">Exploring Your IDEALS</a>
     <a href="archives.html">The Archives</a>
@@ -72,25 +75,34 @@
 
 <div class="screen active" id="screen-landing">
   <div class="inner">
-    <p class="eyebrow">Home</p>
-    <h1 class="title">Welcome to the<br><em>Landing Page</em></h1>
-    <div class="links-grid">
-      <a class="hub-link" href="index.html">
-        <div class="hub-link-name">Which <em>IDEAL</em> are you? →</div>
-        <div class="hub-link-desc">Take the quiz find out.</div>
-      </a>
-      <a class="hub-link" href="news.html">
+
+      <p class="eyebrow">Home</p>
+      <h1 class="title">Welcome to the<br><em>Landing Page</em></h1>
+      <div class="links-grid">
+
+        <a class="hub-link" href="index.html">
+          <div class="hub-link-name">Which <em>IDEAL</em> are you? →</div>
+            <div class="hub-link-desc">Take the quiz find out.</div>
+        </a>
+          <a class="hub-link" href="news.html">
+
+
         <div class="hub-link-name">Today's <em>News</em> →</div>
         <div class="hub-link-desc">Catch up on the latest news.</div>
       </a>
       <a class="hub-link" href="ideals.html">
+
+
         <div class="hub-link-name">Exploring Your <em>IDEALS</em> →</div>
         <div class="hub-link-desc">Meet the six IDEALS and what each one stands for.</div>
       </a>
+
+
       <a class="hub-link" href="archives.html">
         <div class="hub-link-name">The <em>Archives</em> →</div>
         <div class="hub-link-desc">Browse past stories and editions.</div>
       </a>
+
     </div>
   </div>
 </div>
