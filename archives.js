@@ -48,9 +48,9 @@ function resolveDriveUrl(rawUrl, type) {
   if (!match) return rawUrl; // not a Drive link — use as-is
   const id = match[1];
 
-  if (type === 'video') {
-    return `https://drive.google.com/file/d/${id}/preview`;
-  }
+  if (type === 'video' || type === 'drive') {
+  return `https://drive.google.com/file/d/${id}/preview`;
+}
 
   // Drive image URLs are more reliable when opened through the Google Drive viewer
   return `https://drive.google.com/uc?export=view&id=${id}`;
@@ -75,12 +75,14 @@ function normalizeItem(row) {
     } else if (rawUrl.includes('drive.google.com')) {
       // Google Drive share links hide the original extension, so default to image
       // to keep photo previews inside the page instead of misclassifying them as video.
-      type = 'image';
+      type = 'drive';
     }
   }
 
   const url = resolveDriveUrl(rawUrl, type);
+  
   return { type, url, year: row.Year || '', caption: row.Caption || '' };
+  
 }
 
 // ── Year filter buttons
@@ -122,22 +124,23 @@ function renderGrid() {
       ? `${item.year} · ${item.type === 'video' ? 'Video' : 'Photo'}`
       : (item.type === 'video' ? 'Video' : 'Photo');
 
-    if (item.type === 'video') {
-      card.innerHTML = `
-        <div class="archive-thumb-wrap">
-          <div class="archive-thumb-video"><span class="archive-play-icon"></span></div>
-        </div>
-        <div class="archive-body">
-          ${item.caption ? `<p class="archive-caption">${item.caption}</p>` : ''}
-          <p class="archive-year">${meta}</p>
-        </div>
-      `;
-      // Open video in Google Drive player (new tab)
-      card.addEventListener('click', () => {
-        const videoUrl = `https://drive.google.com/file/d/${item.url}/preview`;
-        window.open(videoUrl, '_blank', 'noopener');
-      });
-    } else {
+    if (item.type === 'video' || item.type === 'drive') {
+  card.innerHTML = `
+    <div class="archive-thumb-wrap">
+      <div class="archive-thumb-video">
+        <span class="archive-play-icon"></span>
+      </div>
+    </div>
+    <div class="archive-body">
+      ${item.caption ? `<p class="archive-caption">${item.caption}</p>` : ''}
+      <p class="archive-year">${item.year || ''} · Open media</p>
+    </div>
+  `;
+
+  card.addEventListener('click', () => {
+    window.open(item.url, '_blank', 'noopener');
+  });
+} else {
       card.innerHTML = `
         <div class="archive-thumb-wrap">
           <img src="${item.url}" alt="${item.caption}" loading="lazy">
@@ -166,7 +169,6 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeLightbox();
 });
 
-// ── Loading / error states ──────────────────────────────────────
 function showLoading() {
   gallery.innerHTML = `
     <div class="archive-loading" style="grid-column: 1 / -1;">
