@@ -223,11 +223,8 @@
 </div>
 
 <script>
-// ═══════════════════════════════════════════════
-//  CONFIG — paste your Guardian API key here
-//  Get one free at: open-platform.theguardian.com
-// ═══════════════════════════════════════════════
-const GUARDIAN_KEY = 'test';
+
+const GUARDIAN_KEY = 'a7bc3a27-a96b-4c48-84f6-a57c83b58a7e';
 // ═══════════════════════════════════════════════
 
 const SECTIONS = [
@@ -260,7 +257,7 @@ SECTIONS.forEach(function (s) {
   filtersEl.appendChild(btn);
 });
 
-// ── Search ─────────────────────────────────────
+//  Search
 document.getElementById('search-btn').addEventListener('click', runSearch);
 document.getElementById('search-input').addEventListener('keydown', function (e) {
   if (e.key === 'Enter') runSearch();
@@ -275,7 +272,7 @@ function runSearch() {
   load();
 }
 
-// ── Fetch ──────────────────────────────────────
+// ── Fetch 
 async function fetchArticles() {
   const params = new URLSearchParams({
     'api-key':    GUARDIAN_KEY,
@@ -363,10 +360,7 @@ function showError(msg) {
     <div class="news-error">
       <p>${msg}</p>
       <p style="margin-top:0.75rem;font-size:0.85rem;">
-        Make sure your API key is set — get one free at
-        <a href="https://open-platform.theguardian.com/access/" target="_blank">
-          open-platform.theguardian.com
-        </a>
+        That's strange... there's an error.
       </p>
     </div>
   `;
