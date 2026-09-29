@@ -11,14 +11,14 @@
   --bg2:  #f3f3f3;
   --text: #0D0D12;
   --muted: #666;
-  --gold: #ee3f3f;
-  --green: #1d592c;
+  --gold: #28be34;
+  --green: #e8ffee;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  background: var(--bg);
+   background: linear-gradient(#e8ffee,#ffffff);
   color: var(--text);
   font-family: 'Indie Flower', cursive;
   font-weight: 400;
@@ -37,6 +37,7 @@ body {
   background: var(--bg);
   border-bottom: 1px solid #00000010;
   font-family: 'Montserrat', sans-serif;
+  background-color: var(--green);
 }
 
 .nav-brand {
@@ -93,6 +94,7 @@ body {
 
 /* ── Landing ── */
 .eyebrow {
+  padding-top: 2rem;
   font-size: 11px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -101,6 +103,20 @@ body {
   opacity: 0;
   animation: fadeUp 0.8s 0.2s forwards;
 }
+
+.coolereyebrow {
+  font-size: 15px;
+  opacity: 0;
+  animation: fadeUp 1s 0.3s forwards;
+  
+}
+
+#I{color: var(--c-internationalism);}
+#D{color: var(--c-democracy)}
+#E{color:var(--c-environmentalism)}
+#A{color:var(--c-adventure)}
+#L{color:var(--c-leadership)}
+#S{color:var(--c-service)}
 
 h1.title {
   font-family: 'Playfair Display', serif;
