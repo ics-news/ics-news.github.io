@@ -241,7 +241,7 @@ const IDEALS = {
     name: "Leadership",
     color: "var(--c-leadership)",
     desc: "You don't just follow paths. You clear them — and somehow others follow without you having to ask.",
-    disco8veries: [
+    discoveries: [
       { name: "Inventive Idris",        desc: "Idris sees solutions where others see obstacles. His ideas don't just solve problems — they reimagine them." },
       { name: "Problem Solving Papri",  desc: "Papri breaks the impossible into steps. She's the person you want in the room when everything goes wrong." }
     ]

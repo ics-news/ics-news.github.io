@@ -44,16 +44,24 @@ async function fetchCSV(csvUrl) {
 
 
 function resolveDriveUrl(rawUrl, type) {
-  const match = rawUrl.match(/\/file\/d\/([^/?#]+)/);
-  if (!match) return rawUrl; // not a Drive link — use as-is
-  const id = match[1];
+  let driveUrl;
+  try {
+    driveUrl = new URL(rawUrl);
+  } catch {
+    return rawUrl;
+  }
 
-  if (type === 'video' || type === 'drive') {
-  return `https://drive.google.com/file/d/${id}/preview`;
-}
+  if (!driveUrl.hostname.endsWith('drive.google.com')) return rawUrl;
 
-  // Drive image URLs are more reliable when opened through the Google Drive viewer
-  return `https://drive.google.com/uc?export=view&id=${id}`;
+  const pathMatch = driveUrl.pathname.match(/\/file\/d\/([^/]+)/);
+  const id = pathMatch?.[1] || driveUrl.searchParams.get('id');
+  if (!id) return rawUrl;
+
+  if (type === 'video') {
+    return `https://drive.google.com/file/d/${id}/preview`;
+  }
+
+  return `https://drive.google.com/thumbnail?id=${encodeURIComponent(id)}&sz=w1200`;
 }
 
 function normalizeItem(row) {
@@ -61,8 +69,10 @@ function normalizeItem(row) {
   let type = 'image';
 
   const explicitType = (row.Type || '').trim().toLowerCase();
-  if (explicitType === 'video' || explicitType === 'image') {
-    type = explicitType;
+  if (['video', 'movie', 'clip'].includes(explicitType)) {
+    type = 'video';
+  } else if (['image', 'photo', 'picture'].includes(explicitType)) {
+    type = 'image';
   } else {
     // Auto-detect by extension when the URL itself reveals it.
     const videoExtensions = /\.(mov|mp4|webm|m4v|avi|mkv|flv|wmv|3gp)$/i;
@@ -80,8 +90,9 @@ function normalizeItem(row) {
   }
 
   const url = resolveDriveUrl(rawUrl, type);
+  const openUrl = type === 'drive' ? resolveDriveUrl(rawUrl, 'video') : url;
   
-  return { type, url, year: row.Year || '', caption: row.Caption || '' };
+  return { type, url, openUrl, year: row.Year || '', caption: row.Caption || '' };
   
 }
 
@@ -120,11 +131,10 @@ function renderGrid() {
     const card = document.createElement('div');
     card.className = 'archive-card';
 
-    const meta = item.year
-      ? `${item.year} · ${item.type === 'video' ? 'Video' : 'Photo'}`
-      : (item.type === 'video' ? 'Video' : 'Photo');
+    const mediaLabel = item.type === 'video' ? 'Video' : item.type === 'drive' ? 'Media' : 'Photo';
+    const meta = item.year ? `${item.year} · ${mediaLabel}` : mediaLabel;
 
-    if (item.type === 'video' || item.type === 'drive') {
+    if (item.type === 'video') {
   card.innerHTML = `
     <div class="archive-thumb-wrap">
       <div class="archive-thumb-video">
@@ -150,7 +160,13 @@ function renderGrid() {
           <p class="archive-year">${meta}</p>
         </div>
       `;
-      card.addEventListener('click', () => openLightbox(item.url));
+      card.addEventListener('click', () => {
+        if (item.type === 'drive') {
+          window.open(item.openUrl, '_blank', 'noopener');
+        } else {
+          openLightbox(item.url);
+        }
+      });
     }
 
     gallery.appendChild(card);
