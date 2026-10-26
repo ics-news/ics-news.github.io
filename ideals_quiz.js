@@ -1,19 +1,3 @@
-// ═══════════════════════════════════════════════════════════════
-//  WEEKLY NEWS LINKS — now live in a Google Sheet, not here
-//
-//  Sheet columns (row 1 = headers):
-//    Ideal | URL
-//    Ideal = one of: Internationalism, Democracy, Environmentalism,
-//            Adventure, Leadership, Service (spelled exactly like that)
-//    URL   = the link to that IDEAL's story for the week
-//
-//  To update NEWS_CSV_URL if you ever recreate the sheet:
-//    1. File → Share → Publish to web → pick the News URLs tab → Publish
-//    2. Google gives you a link ending in /pubhtml?gid=...&single=true
-//    3. Change  pubhtml  to  pub  and replace everything after the ?
-//       with  output=csv&gid=SAME_GID_NUMBER
-//    e.g. .../pub?output=csv&gid=735754838
-// ═══════════════════════════════════════════════════════════════
 const NEWS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRga-yt0dFE0ubFnEH5JuaHeuFjf6QEafFr8hZz-jAUm_oM-DoPd9PIkTorJVnEEmkKNfRaOoSUtGB1/pub?output=csv&gid=735754838';
 // ═══════════════════════════════════════════════════════════════
 

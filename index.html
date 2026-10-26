@@ -3,66 +3,97 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ICS News & Creator Hub</title>
+<title>ICS Kumasi Round Square Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="site_styles.css">
 <style>
-  .links-grid {
+  body.home-page {
+    min-height: 100vh;
+    background: #fff;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .home-page .navbar {
+    position: absolute;
+    /* background: rgba(255, 255, 255, 0.92); */
+  }
+
+  .home-banner {
+    width: 100%;
+  }
+
+  .home-banner img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .home-intro {
+    min-height: 310px;
+    padding: 6.5rem 1.5rem 3rem;
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
-    margin-top: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
 
-  body {
-    background-image: linear-gradient(rgba(202, 255, 216, 0.4), rgba(255, 255, 255, 0.9)), url('assets/background.png');
+  .home-intro h1 {
+    max-width: 520px;
+    margin-bottom: 0.8rem;
+    color: #28be54;
+    font-size: clamp(1.5rem, 3vw, 1.8rem);
+    font-weight: 500;
+    line-height: 1.35;
   }
 
-  .hub-link {
-    display: block;
-    padding: 1.25rem 1.5rem;
-    border: 1px solid #00000015;
-    text-decoration: none;
-    color: var(--text);
-    text-align: left;
-    transition: border-color 0.2s, transform 0.2s;
+  .home-intro p {
+    max-width: 580px;
+    margin-bottom: 1.8rem;
+    color: #252525;
+    font-size: 0.85rem;
+    line-height: 1.7;
   }
 
-  .hub-link:hover {
-    border-color: var(--gold);
-    transform: translateX(4px);
-  }
-
-  .hub-link-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
+  .home-about {
+    display: inline-flex;
+    min-height: 36px;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.6rem 1.1rem;
+    border: 1px solid #17632b;
+    color: #17632b;
+    font-size: 0.65rem;
     font-weight: 700;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background-color 0.2s, color 0.2s;
   }
 
-  .hub-link-name em {
-    font-style: normal;
-    color: var(--gold);
+  .home-about:hover {
+    background: #17632b;
+    color: #fff;
   }
 
-  .hub-link-desc {
-    font-size: 0.95rem;
-    color: var(--muted);
-    margin-top: 0.25rem;
+  .home-page .site-footer {
+    display: none;
   }
-  .screen.active {
-    overflow-y: auto;
-    min-height: 100vh;
-    height: auto;
-    box-sizing: border-box;
-  }
-  .screen.active .inner {
-    padding-bottom: -2rem;
+
+  @media (max-width: 640px) {
+    .home-page .navbar {
+      padding: 0.75rem 1rem;
+    }
+
+    .home-intro {
+      min-height: 290px;
+      padding-top: 4rem;
+    }
   }
 </style>
 </head>
-<body>
+<body class="home-page">
 
 <!--!  Navbar ── -->
 <nav class="navbar">
@@ -75,53 +106,27 @@
   <div class="nav-links"  >
     <a href="news.html">Today's News</a>
     <a href="ideals.html">Exploring Your IDEALS</a>
-    <a href="archives.html">The Archives</a>
+    <a href="archives.html">The Gallery</a>
     <a href="info.html">Round Square &amp; More</a>
     <a href="mailto:icskumasi.news@gmail.com">Feedback</a>
   </div>
 </nav>
 
-<div class="screen active" id="screen-landing">
-  <div class="inner">
+<header class="home-banner">
+  <img src="assets/background.png" alt="Aerial view of the ICS campus">
+</header>
 
-      <p class="eyebrow" style="padding-top: 20rem;">Home</p>
-      <h1 class="title">Welcome to the<br><em>ICS News Hub</em></h1>
-
-      <p class="coolereyebrow">
-        School is more than just textbooks and Google classrooms. It is a place where doors open to new perspectives and simple ideas become extraordinary actions. That is where the Round Square spirit comes in.
-        Round Square is a compass that points beyond the classroom through the IDEALS and real-life lessons. Here, <em id="I">Internationalism</em> weaves cultures together, <em id="D">Democracy</em> amplifies every voice,
-        <em id="E">Environmentalism</em> protects tomorrow and preserves yesterday, <em id="A">Adventure</em> embraces obstacles,
-        <em id="L">Leadership</em> is embodied, and <em id="S">Service</em> leaves a legacy. This is where our stories begin, and where the many more to come can include you.
-        Find upcoming events, projects, achievements, opportunities, and unforgettable memories right here.
-      </p>
-
-      <div class="links-grid">
-        <a class="hub-link" href="news.html">
-          <div class="hub-link-name">Today's <em>News</em> →</div>
-          <div class="hub-link-desc">Catch up on the latest stories and updates.</div>
-        </a>
-
-        <a class="hub-link" href="quiz.html">
-          <div class="hub-link-name">Which <em>IDEAL</em> describes you best? →</div>
-          <div class="hub-link-desc">Take the quiz and find out.</div>
-        </a>
-
-        <a class="hub-link" href="ideals.html">
-          <div class="hub-link-name">Exploring Your <em>IDEALS</em> →</div>
-          <div class="hub-link-desc">Meet the six IDEALS and what each one stands for.</div>
-        </a>
-
-        <a class="hub-link" href="archives.html">
-          <div class="hub-link-name">The <em>Archives</em> →</div>
-          <div class="hub-link-desc">Browse past stories and editions.</div>
-        </a>
-      </div>
-  </div>
-</div>
-
-<footer class="site-footer">
-  <img src="assets/POSTER FOOTER 1.png" alt="ics watermark" class="footer-img">
-</footer>
+<main class="home-intro">
+  <h1>Welcome to the<br>ICS News Hub</h1>
+  <p>
+    School is more than just textbooks and Google classrooms. It is a place where doors open to new perspectives and simple ideas become extraordinary actions. That is where the Round Square spirit comes in.
+    Round Square is a compass that points beyond the classroom through the IDEALS and real-life lessons. Here, <em id="I">Internationalism</em> weaves cultures together, <em id="D">Democracy</em> amplifies every voice,
+    <em id="E">Environmentalism</em> protects tomorrow and preserves yesterday, <em id="A">Adventure</em> embraces obstacles,
+    <em id="L">Leadership</em> is embodied, and <em id="S">Service</em> leaves a legacy. This is where our stories begin, and where the many more to come can include you.
+    Find upcoming events, projects, achievements, opportunities, and unforgettable memories right here.
+  </p>
+  <a class="home-about" href="info.html"><span aria-hidden="true">›</span> About Website</a>
+</main>
 
 </body>
 </html>
